@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="text-center fs-1">
+                <p class="text-bg-warning"><b>HOME PAGE</b></p>
+                <b class="text-danger">Chào bạn, <span id="full-name"></span></b>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('#full-name').text(storage.getItem('key_full_name'));
+        });
+    </script>
+</body>
+
+</html>

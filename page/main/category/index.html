@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        #category-table {
+            cursor: pointer;
+        }
+
+        #category-table tr {
+            transition: 0.25s;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #category-table td {
+            text-align: center;
+        }
+
+        #category-table th {
+            white-space: nowrap;
+        }
+
+        #category-table-wrapper {
+            min-height: 128px;
+            max-width: 1000px;
+            max-height: 500px;
+            overflow-y: scroll;
+        }
+
+        .selected {
+            color: white;
+            background-color: #5fb3cf;
+        }
+    </style>
+
+    <script src="/page/main/category/index.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-3 mb-3">
+                <label for="min-created-date" class="form-label">Ngày tạo từ: </label>
+                <input type="date" class="form-control form-control-sm" name="min-created-date" id="min-created-date">
+            </div>
+            <div class="col-3 mb-3">
+                <label for="max-created-date" class="form-label">Ngày tạo đến: </label>
+                <input type="date" class="form-control form-control-sm" name="max-created-date" id="max-created-date">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6 d-flex">
+                <input id="search" class="form-control form-control-sm me-2" type="search"
+                    placeholder="Tìm kiếm danh mục sản phẩm" aria-label="Search">
+                <button id="btn-search" class="col-auto btn btn-sm btn-outline-success" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Tìm kiếm
+                </button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button id="btn-refresh" type="button" class="btn btn-sm btn-primary">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    Refresh
+                </button>
+                <button id="btn-add" type="button" class="btn btn-sm btn-success ms-2" data-bs-toggle="modal"
+                    data-bs-target="#form-modal">
+                    <i class="fa-solid fa-plus"></i>
+                    Thêm
+                </button>
+                <button id="btn-edit" type="button" class="btn btn-sm btn-warning ms-2" data-bs-toggle="modal"
+                    data-bs-target="#form-modal" disabled>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Sửa
+                </button>
+                <button id="btn-delete" type="button" class="btn btn-sm btn-danger ms-2" data-bs-toggle="modal"
+                    data-bs-target="#delete-modal" disabled>
+                    <i class="fa-solid fa-trash"></i>
+                    Xóa
+                </button>
+            </div>
+        </div>
+        <div class="position-relative">
+            <div id="category-table-wrapper" class="row my-4">
+                <table id="category-table" class="table">
+                    <thead id="category-thead">
+                        <tr class="text-primary sticky-top bg-light">
+                            <th scope="col" class="px-3" key="id">
+                                # <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="name">
+                                Tên
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="createdDate">
+                                Ngày tạo
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-3" key="updatedAt">
+                                Ngày cập nhật
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="category-tbody"></tbody>
+                </table>
+                <div id="loading" class="position-absolute top-50 start-50 spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p id="page-info" class="text-start col-auto"></p>
+            <div class="col-auto">
+                <select class="form-select form-select-sm" id="page-size">
+                    <option value="3" selected>3</option>
+                    <option value="6">6</option>
+                    <option value="9">9</option>
+                </select>
+            </div>
+            <p class="text-start col-auto">rows per page</p>
+            <nav class="col-auto ms-auto">
+                <ul class="pagination pagination-sm">
+                    <li class="page-item">
+                        <a onclick="changePageNumberBy(-1)" id="previous" class="page-link" href="#">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <input id="page-number" min="1" class="form-control form-control-sm" type="number" value="1">
+                    </li>
+                    <li class="page-item">
+                        <a onclick="changePageNumberBy(1)" id="next" class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div id="form-modal-container"></div>
+    <div id="delete-modal-container"></div>
+</body>
+
+</html>

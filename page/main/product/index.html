@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        #product-table {
+            cursor: pointer;
+        }
+
+        #product-table tr {
+            transition: 0.25s;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #product-table td {
+            text-align: center;
+        }
+
+        #product-table th {
+            white-space: nowrap;
+        }
+
+        #product-table-wrapper {
+            min-height: 128px;
+            max-width: 1000px;
+            max-height: 500px;
+            overflow-y: scroll;
+        }
+
+        .selected {
+            color: white;
+            background-color: #73cadd;
+        }
+    </style>
+
+    <script src="/page/main/product/index.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-3 mb-3">
+                <label for="category-filter" class="form-label">Danh mục sản phẩm</label>
+                <select id="category-filter" class="form-select form-select-sm" name="category-filter">
+                    <option value="">Tất cả</option>
+                </select>
+            </div>
+            <div class="col-3 mb-3">
+                <label for="ram" class="form-label">Ram</label>
+                <select class="form-select form-select-sm" name="ram" id="ram">
+                    <option value="">Tất cả</option>
+                    <option value="_8GB">8GB</option>
+                    <option value="_12GB">12GB</option>
+                    <option value="_16GB">16GB</option>
+                </select>
+            </div>
+            <div class="col-3 mb-3">
+                <label for="min-year" class="form-label">Năm tạo từ: </label>
+                <input type="number" step="1" class="form-control form-control-sm" name="min-year" id="min-year"
+                    placeholder="VD: 1970">
+            </div>
+            <div class="col-3 mb-3">
+                <label for="max-year" class="form-label">Năm tạo đến: </label>
+                <input type="number" step="1" class="form-control form-control-sm" name="max-year" id="max-year"
+                    placeholder="VD: 2022">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 mb-3">
+                <label for="min-sale-price" class="form-label">Giá bán từ: </label>
+                <input type="number" min="0" step="100000" class="form-control form-control-sm" name="min-sale-price"
+                    id="min-sale-price" placeholder="VD: 5.000.000đ">
+            </div>
+            <div class="col-3 mb-3">
+                <label for="max-sale-price" class="form-label">Giá bán đến: </label>
+                <input type="number" min="0" step="100000" class="form-control form-control-sm" name="max-sale-price"
+                    id="max-sale-price" placeholder="VD: 10.000.000đ">
+            </div>
+            <div class="col-3 mb-3">
+                <label for="min-created-date" class="form-label">Ngày tạo từ: </label>
+                <input type="date" class="form-control form-control-sm" name="min-created-date" id="min-created-date">
+            </div>
+            <div class="col-3 mb-3">
+                <label for="max-created-date" class="form-label">Ngày tạo đến: </label>
+                <input type="date" class="form-control form-control-sm" name="max-created-date" id="max-created-date">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6 d-flex">
+                <input id="search" class="form-control form-control-sm me-2" type="search"
+                    placeholder="Tìm kiếm sản phẩm" aria-label="Search">
+                <button id="btn-search" class="col-auto btn btn-sm btn-outline-success" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Tìm kiếm
+                </button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button id="btn-refresh" type="button" class="btn btn-sm btn-primary" onclick="test()">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    Refresh
+            
+                </button>
+                <button id="btn-add" type="button" class="btn btn-sm btn-success ms-2" data-bs-toggle="modal"
+                    data-bs-target="#form-modal">
+                    <i class="fa-solid fa-plus"></i>
+                    Thêm
+                </button>
+                <button id="btn-edit" type="button" class="btn btn-sm btn-warning ms-2" data-bs-toggle="modal"
+                    data-bs-target="#form-modal" disabled>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Sửa
+                </button>
+                <button id="btn-delete" type="button" class="btn btn-sm btn-danger ms-2" data-bs-toggle="modal"
+                    data-bs-target="#delete-modal" disabled>
+                    <i class="fa-solid fa-trash"></i>
+                    Xóa
+                </button>
+            </div>
+        </div>
+        <div class="position-relative">
+            <div id="product-table-wrapper" class="row my-4">
+                <table id="product-table" class="table">
+                    <thead id="product-thead">
+                        <tr class="text-primary sticky-top bg-light">
+                            <th scope="col" class="px-3" key="id">
+                                # <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="name">
+                                Tên
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="ram">
+                                Ram
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="price">
+                                Giá gốc
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="salePrice">
+                                Giá bán
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" key="description" style="padding: 0 200px">
+                                Mô tả
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="thumbnailUrl">
+                                Ảnh minh họa
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="createdDate">
+                                Ngày tạo
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" key="updatedAt" style="padding: 0 40px">
+                                Ngày cập nhật
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="categoryName">
+                                Danh mục
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="product-tbody"></tbody>
+                </table>
+                <div id="loading" class="position-absolute top-50 start-50 spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p id="page-info" class="text-start col-auto"></p>
+            <div class="col-auto">
+                <select class="form-select form-select-sm" id="page-size">
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+            <p class="text-start col-auto">rows per page</p>
+            <nav class="col-auto ms-auto">
+                <ul class="pagination pagination-sm">
+                    <li class="page-item">
+                        <a onclick="changePageNumberBy(-1)" id="previous" class="page-link" href="#">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <input id="page-number" min="1" class="form-control form-control-sm" type="number" value="1">
+                    </li>
+                    <li class="page-item">
+                        <a onclick="changePageNumberBy(1)" id="next" class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div id="form-modal-container"></div>
+    <div id="delete-modal-container"></div>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        #v-pills-tab-content {
+            width: 75%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex align-items-start">
+        <div class="nav flex-column nav-pills me-3" id="v-pills-tab">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="pill" type="button">Trang chủ</button>
+            <button class="nav-link" id="product-tab" data-bs-toggle="pill" type="button">Sản phẩm</button>
+            <button class="nav-link" id="category-tab" data-bs-toggle="pill" type="button">Danh mục sản phẩm</button>
+            <button class="nav-link" id="account-tab" data-bs-toggle="pill" type="button">Tài khoản</button>
+        </div>
+        <div class="tab-content mx-5" id="v-pills-tab-content">
+            <div class="tab-pane fade show active" id="v-pills-content"></div>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+    
+    <script>
+        $(function () {
+            $('#toast-container').load('/common/toast/toast.html');
+
+            const mainContent = $('#v-pills-content');
+            mainContent.load('/page/main/home/index.html');
+
+            $('#home-tab').on('click', function (event) {
+                mainContent.load('/page/main/home/index.html');
+            });
+
+            $('#product-tab').on('click', function (event) {
+                mainContent.load('/page/main/product/index.html');
+            });
+
+            $('#category-tab').on('click', function (event) {
+                mainContent.load('/page/main/category/index.html');
+            });
+
+            const role = storage.getItem('key_role');
+            if (role == 'ADMIN'|'MANAGER') {
+                $('#account-tab').on('click', function (event) {
+                    mainContent.load('/page/main/account/index.html');
+                });
+            } else {
+                $('#account-tab').hide();
+            }
+        });
+    </script>
+</body>
+
+</html>

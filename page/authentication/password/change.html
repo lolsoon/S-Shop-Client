@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TEST-FINAL - Đổi mật khẩu</title>
+
+	<!-- Bootstrap 5.2.1 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<link rel="stylesheet" href="/page/authentication/password/change.css">
+
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+		crossorigin="anonymous"></script>
+	<!-- JQuery 3.6.1 -->
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+		integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/194acd46be.js" crossorigin="anonymous"></script>
+	<script src="/utils/storage.js"></script>
+	<script src="/page/authentication/password/change.js"></script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="text-center text-success fs-1 brand d-flex flex-column mt-3">
+			<i class="fa-solid fa-user-astronaut"></i></i>TEST-FINAL
+		</div>
+		<div class="p-3 mt-3">
+			<div class="form-field d-flex align-items-center">
+				<i class="ms-2 fa-solid fa-lock"></i>
+				<input type="password" name="password" id="password" placeholder="Mật khẩu mới">
+			</div>
+			<div class="form-field d-flex align-items-center">
+				<i class="ms-2 fa-solid fa-lock"></i>
+				<input type="password" name="re-password" id="re-password" placeholder="Nhập lại mật khẩu">
+			</div>
+			<button id="btn-change-password" type="button" class="btn text-light mt-3">Đổi mật khẩu</button>
+		</div>
+	</div>
+	<div id="toast-container"></div>
+</body>
+
+</html>

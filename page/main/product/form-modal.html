@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        small {
+            color: red;
+        }
+    </style>
+
+    <script src="/page/main/product/form-modal.js"></script>
+</head>
+
+<body>
+    <div class="modal fade" id="form-modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="form-modal-title">Thêm sản phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="product-form">
+                        <div id="form-id-container" class="mb-3">
+                            <label for="form-id" class="form-label">ID</label>
+                            <input type="text" class="form-control form-control-sm" name="form-id" id="form-id"
+                                disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form-name" class="form-label">Tên sản phẩm</label>
+                            <input type="text" class="form-control form-control-sm" name="form-name" id="form-name"
+                                aria-describedby="form-name-help" placeholder="VD: Samsung Galaxy Z Flip4 5G">
+                            <small id="form-name-help" class="form-text text-muted">Tên sản phẩm có tối đa 50 ký
+                                tự.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form-price" class="form-label">Giá gốc</label>
+                            <input type="number" class="form-control form-control-sm" name="form-price" id="form-price"
+                                aria-describedby="form-price-help" placeholder="VD: 5.000.000đ">
+                            <small id="form-price-help" class="form-text text-muted">Giá gốc của sản phẩm phải là số >=
+                                0.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form-sale-price" class="form-label">Giá bán</label>
+                            <input type="number" class="form-control form-control-sm" name="form-sale-price"
+                                id="form-sale-price" aria-describedby="form-sale-price-help"
+                                placeholder="VD: 10.000.000đ">
+                            <small id="form-sale-price-help" class="form-text text-muted">Giá bán của sản phẩm phải là
+                                số >= 0.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form-thumbnail-url" class="form-label">Ảnh minh họa</label>
+                            <input type="text" class="form-control form-control-sm" name="form-thumbnail-url"
+                                id="form-thumbnail-url" aria-describedby="form-thumbnail-url"
+                                placeholder="VD: https://cdn.tgdd.vn/Products/Images/42/258047/samsung-galaxy-z-flip4-5g-128gb-thumb-tim-600x600.jpg">
+                            <small id="form-thumbnail-url" class="form-text text-muted">Ảnh minh họa sản phẩm có tối đa
+                                255 ký tự.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form-description" class="form-label">Mô tả sản phẩm</label>
+                            <textarea class="form-control form-control-sm" name="form-description" id="form-description"
+                                rows="5"
+                                placeholder="VD: Mới đây chiếc Samsung Galaxy Z Flip4 128GB đã chính thức ra mắt trên thị trường công nghệ, đánh dấu sự trở lại của hãng trên con đường định hướng người dùng về sự tiện lợi trên những chiếc điện thoại gập."></textarea>
+                            <small id="form-thumbnail-url" class="form-text text-muted">Mô tả sản phẩm có tối đa 1023 ký
+                                tự.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form-category" class="form-label">Danh mục sản phẩm</label>
+                            <select class="form-select form-select-sm" name="form-category" id="form-category">
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form-ram" class="form-label">Ram</label>
+                            <select class="form-select form-select-sm" name="form-ram" id="form-ram">
+                                <option value="_8GB">8GB</option>
+                                <option value="_12GB">12GB</option>
+                                <option value="_16GB">16GB</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button id="form-modal-btn-create" type="button" class="btn btn-success">Tạo mới</button>
+                    <button id="form-modal-btn-update" type="button" class="btn btn-warning">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

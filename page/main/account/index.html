@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        #account-table {
+            cursor: pointer;
+        }
+
+        #account-table tr {
+            transition: 0.25s;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #account-table td {
+            text-align: center;
+        }
+
+        #account-table th {
+            white-space: nowrap;
+        }
+
+        #account-table-wrapper {
+            min-height: 128px;
+            max-width: 1000px;
+            max-height: 500px;
+            overflow-y: scroll;
+        }
+
+        .selected {
+            color: white;
+            background-color: #7ad1db;
+        }
+    </style>
+
+    <script src="/page/main/account/index.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 mb-3">
+                <label for="role" class="form-label">Vai trò</label>
+                <select class="form-select form-select-sm" name="role" id="role">
+                    <option value="">Tất cả</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="MANAGER">MANAGER</option>
+                    <option value="EMPLOYEE">EMPLOYEE</option>
+                </select>
+            </div>
+            <div class="col-3 mb-3">
+                <label for="min-id" class="form-label">ID từ: </label>
+                <input type="number" min="1" class="form-control form-control-sm" name="min-id" id="min-id"
+                    placeholder="VD: 10">
+            </div>
+            <div class="col-3 mb-3">
+                <label for="max-id" class="form-label">ID đến: </label>
+                <input type="number" min="1" class="form-control form-control-sm" name="max-id" id="max-id"
+                    placeholder="VD: 100">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-6 d-flex">
+                <input id="search" class="form-control form-control-sm me-2" type="search"
+                    placeholder="Tìm kiếm tài khoản" aria-label="Search">
+                <button id="btn-search" class="col-auto btn btn-sm btn-outline-success" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Tìm kiếm
+                </button>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button id="btn-refresh" type="button" class="btn btn-sm btn-primary">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    Refresh
+                </button>
+                <button id="btn-add" type="button" class="btn btn-sm btn-success ms-2" data-bs-toggle="modal"
+                    data-bs-target="#form-modal">
+                    <i class="fa-solid fa-plus"></i>
+                    Thêm
+                </button>
+                <button id="btn-edit" type="button" class="btn btn-sm btn-warning ms-2" data-bs-toggle="modal"
+                    data-bs-target="#form-modal" disabled>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Sửa
+                </button>
+                <button id="btn-delete" type="button" class="btn btn-sm btn-danger ms-2" data-bs-toggle="modal"
+                    data-bs-target="#delete-modal" disabled>
+                    <i class="fa-solid fa-trash"></i>
+                    Xóa
+                </button>
+            </div>
+        </div>
+        <div class="position-relative">
+            <div id="account-table-wrapper" class="row my-4">
+                <table id="account-table" class="table">
+                    <thead id="account-thead">
+                        <tr class="text-primary sticky-top bg-light">
+                            <th scope="col" class="px-3" key="id">
+                                # <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="lastName">
+                                Họ
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="firstName">
+                                Tên
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="username">
+                                Tên tài khoản
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="createdDate">
+                                Ngày tạo
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" key="updatedAt" style="padding: 0 40px">
+                                Ngày cập nhật
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                            <th scope="col" class="px-4" key="role">
+                                Vai trò
+                                <i class="fa-solid fa-sort fa-xs ms-2"></i>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="account-tbody"></tbody>
+                </table>
+                <div id="loading" class="position-absolute top-50 start-50 spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p id="page-info" class="text-start col-auto"></p>
+            <div class="col-auto">
+                <select class="form-select form-select-sm" id="page-size">
+                    <option value="5" selected>5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+            <p class="text-start col-auto">rows per page</p>
+            <nav class="col-auto ms-auto">
+                <ul class="pagination pagination-sm">
+                    <li class="page-item">
+                        <a onclick="changePageNumberBy(-1)" id="previous" class="page-link" href="#">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <input id="page-number" min="1" class="form-control form-control-sm" type="number" value="1">
+                    </li>
+                    <li class="page-item">
+                        <a onclick="changePageNumberBy(1)" id="next" class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div id="form-modal-container"></div>
+    <div id="delete-modal-container"></div>
+</body>
+
+</html>

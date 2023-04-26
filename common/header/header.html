@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-light fixed-top">
+        <div class="container-md">
+            <a class="navbar-brand text-warning fs-1 fw-bold" href="#">S-Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbar-supported-content" aria-controls="navbar-supported-content"
+                aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-supported-content">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Danh mục sản phẩm
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Điện thoại</a></li>
+                            <li><a class="dropdown-item" href="#">Laptop</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Đồng hồ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tin tức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Liên hệ</a>
+                    </li>
+                </ul>
+                <ul id="profile" class="navbar-nav me-4 mb-2 mb-lg-0 ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-primary fs-5 btn" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <b id="profile-full-name"></b>
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a id="btn-change-password" href="/page/authentication/password/change.html" class="dropdown-item btn btn-outline-warning">
+                                    <i class="fa-solid fa-key me-2"></i>
+                                    Đổi mật khẩu
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a id="btn-logout" href="/page/authentication/login/login.html" class="dropdown-item btn btn-outline-danger">
+                                    <i class="fa-solid fa-right-from-bracket me-2"></i>
+                                    Đăng xuất
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <a id="btn-login" href="/page/authentication/login/login.html" class="btn btn-outline-success me-4">
+                    <i class="fa-solid fa-right-to-bracket me-2"></i>
+                    Đăng nhập
+                </a>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search">
+                    <button class="col-auto btn btn-outline-success" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Tìm kiếm
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        $('#btn-logout').on('click', event => {
+            storage.clear();
+        })
+
+        if (storage.hasKey('key_token')) {
+            $('#btn-login').hide();
+            $('#profile').show();
+            $('#profile-full-name').text(storage.getItem('key_full_name'));
+        } else {
+            $('#btn-login').show();
+            $('#profile').hide();
+        }
+    </script>
+</body>
+
+</html>
