@@ -25,7 +25,7 @@ $(function () {
                 saveUserInfo(data, token, rememberMe);
                 showToast('Đăng nhập thành công', 'Chúng tôi đang chuyển hướng bạn đến trang chủ...');
 
-                // Chuyển hướng trang web sau 2 giấy
+                // Chuyển hướng trang web sau 2 giây
                 setTimeout(function () {
                     window.location.replace('/index.html');
                 }, 2000);
